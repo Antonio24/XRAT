@@ -1,0 +1,107 @@
+@mycolor: #BAD455;
+
+
+body,html { height:100%; }
+h3.title {
+	margin:0;
+	padding:0;
+}
+
+.row-fluid.row > div.maxheight {
+	height:100%;
+	padding-right:15px;
+	overflow:auto;
+}
+
+.well.fullheight {
+	height:100%;
+	padding:0px;
+}
+
+.nav.nav-list li a{
+	padding:10px;
+	margin:0;
+}
+
+.nav.nav-tabs.nav-stacked {
+	li.active a {
+		background:#08C;
+		color:#FFF;
+		cursor:pointer;
+		i {
+			background-image: url("../img/glyphicons-halflings-white.png");
+			opacity:1;
+		}
+	}
+	i {
+		opacity:0.2;
+	}
+}
+
+.form-horizontal {
+	input, textarea {
+		width:80%;
+	}
+}
+
+.btn-stack-group {
+	width:90%;
+	margin:20px auto;
+	button {
+		padding-top:15px;
+		padding-bottom:15px;
+		margin:10px 0;
+	}
+}
+
+.accordion-heading .accordion-toggle {
+	padding: 15px;
+}
+
+
+table#infotable tbody {
+	tr > td:first-child {
+		width:150px;
+		word-wrap: break-word;
+	}
+}
+
+
+/* Large desktop */
+@media (min-width: 1200px) and (max-width: 1650px) {  
+
+
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 1200px) { 
+
+
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+
+	#helpwindow,#moduleinfowindow,#settingswindow {
+		margin-left:0px;
+	}
+
+	.row-fluid.row > div.maxheight {
+		height:auto;
+		overflow:none;
+		padding-right:5px;
+	}
+
+	#dashBigBlock {
+		margin-top:30px;
+	}
+	.nav.nav-tabs.nav-stacked {
+		margin-left:-40px;
+	}
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+
+
+}
